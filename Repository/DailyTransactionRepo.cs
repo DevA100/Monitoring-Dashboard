@@ -47,7 +47,7 @@ namespace DashboardProject.Repository
             var constring = GetConnectionString("DefaultConnection");
             var query = @"SELECT COUNT(*) 
                           FROM VwAccMaster 
-                          WHERE ProdCatCode IN ('1','2') 
+                          WHERE ProdCatCode IN ('0','0') 
                             AND DateAdded = @DateAdded";
             using var conn = new SqlConnection(constring);
             return await conn.ExecuteScalarAsync<int>(query, new { DateAdded = DateTime.Now.Date.AddDays(-1).ToString("yyyy-MM-dd") });
@@ -60,7 +60,7 @@ namespace DashboardProject.Repository
 
             var query = @"SELECT COUNT(*) 
                           FROM VwAccMaster 
-                          WHERE ProdCatCode IN ('1','2') 
+                          WHERE ProdCatCode IN ('0','0') 
                             AND DateAdded = @DateAdded";
 
             int value;
@@ -92,16 +92,16 @@ namespace DashboardProject.Repository
         }
 
         public Task<int> GetDailyOpenedAccountByAdeolaHopewell() => GetBranchAccountOpened(109 , DateTime.Now.Date);
-        public Task<int> GetDailyOpenedAccountByOgba() => GetBranchAccountOpened(107, DateTime.Now.Date);
-        public Task<int> GetDailyOpenedAccountByCamp() => GetBranchAccountOpened(302, DateTime.Now.Date);
-        public Task<int> GetDailyOpenedAccountByAbuja() => GetBranchAccountOpened(201, DateTime.Now.Date);
-        public Task<int> GetDailyOpenedAccountByOkooba() => GetBranchAccountOpened(104, DateTime.Now.Date);
+        public Task<int> GetDailyOpenedAccountByOgba() => GetBranchAccountOpened(00, DateTime.Now.Date);
+        public Task<int> GetDailyOpenedAccountByCamp() => GetBranchAccountOpened(00, DateTime.Now.Date);
+        public Task<int> GetDailyOpenedAccountByAbuja() => GetBranchAccountOpened(00, DateTime.Now.Date);
+        public Task<int> GetDailyOpenedAccountByOkooba() => GetBranchAccountOpened(00, DateTime.Now.Date);
 
-        public Task<int> GetDailyOpenedAccountByAdeolaHopewellYesterday() => GetBranchAccountOpened(109, DateTime.Now.Date.AddDays(-1));
-        public Task<int> GetDailyOpenedAccountByOgbaYesterday() => GetBranchAccountOpened(107, DateTime.Now.Date.AddDays(-1));
-        public Task<int> GetDailyOpenedAccountByCampYesterday() => GetBranchAccountOpened(302, DateTime.Now.Date.AddDays(-1));
-        public Task<int> GetDailyOpenedAccountByAbujaYesterday() => GetBranchAccountOpened(201, DateTime.Now.Date.AddDays(-1));
-        public Task<int> GetDailyOpenedAccountByOkoobaYesterday() => GetBranchAccountOpened(104, DateTime.Now.Date.AddDays(-1));
+        public Task<int> GetDailyOpenedAccountByAdeolaHopewellYesterday() => GetBranchAccountOpened(00, DateTime.Now.Date.AddDays(-1));
+        public Task<int> GetDailyOpenedAccountByOgbaYesterday() => GetBranchAccountOpened(00, DateTime.Now.Date.AddDays(-1));
+        public Task<int> GetDailyOpenedAccountByCampYesterday() => GetBranchAccountOpened(00, DateTime.Now.Date.AddDays(-1));
+        public Task<int> GetDailyOpenedAccountByAbujaYesterday() => GetBranchAccountOpened(00, DateTime.Now.Date.AddDays(-1));
+        public Task<int> GetDailyOpenedAccountByOkoobaYesterday() => GetBranchAccountOpened(00, DateTime.Now.Date.AddDays(-1));
 
 
 
