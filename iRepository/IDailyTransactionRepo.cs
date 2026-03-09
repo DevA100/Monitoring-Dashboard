@@ -3,53 +3,7 @@ using System.Threading.Tasks;
 using System.Data;
 namespace DashboardProject.iRepository
 {
-    //public interface IDailyTransactionRepo
-    //{
-    //    public Task<object> GetDailyTransactionCounts();
-    //    public Task<object> GetYesterdayTransactionCounts();
-    //    public Task<object> GetDailyOpenedAccount();
-    //    public Task<object> AccountOpenedYesterdayBankwide();
-    //    public Task<object> GetDailyOpenedAccountByAdeolaHopewell();
-    //    public Task<object> GetDailyOpenedAccountByOgba();
-    //    public Task<object> GetDailyOpenedAccountByCamp();
-    //    public Task<object> GetDailyOpenedAccountByAbuja();
-    //    public Task<object> GetDailyOpenedAccountByOkooba();
-    //    public Task<object> GetDailyOpenedAccountByAdeolaHopewellYesterday();
-    //    public Task<object> GetDailyOpenedAccountByOgbaYesterday();
-    //    public Task<object> GetDailyOpenedAccountByCampYesterday();
-    //    public Task<object> GetDailyOpenedAccountByAbujaYesterday();
-    //    public Task<object> GetDailyOpenedAccountByOkoobaYesterday();
-    //    public Task<object> InwardTransactionPerDay();
-    //    public Task<object> YesterdayInwardTransaction();
-    //    public Task<object> InwardTransactionPerDayValue();
-    //    public Task<object> YesterdayTransactionValue();
-    //    public Task<object> OutwardTransactionPerDay();
-    //    public Task<object> OutwardTransactionYesterday();
-    //    public Task<object> ReversedTransactions();
-    //    public Task<object> YesterdayReversedTransactions();
-    //    public Task<object> SentMailPerDay();
-    //    public Task<object> SentMailYesterday();
-    //    public Task<object> SentSMSPerDay();
-    //    public Task<object> SentSMSYesterday();
-    //    public Task<int> AtmAndTransferTransaction();
-    //    public Task<object> AtmAndTransferTransactionYesterday();
-    //    public Task<object> ViewAccountPostStatus();
-    //    public Task<object> DownloadSqlDataAsExcel();
-    //    //public Task<object> AccountsOnboardedRetail();
-    //    public Task<object> RemitaTransactionsYesterday();
-    //    public Task<object> RemitaVolumeYesterday();
-    //    public Task<object> RemitaTransactions();
-    //    public Task<object> RemitaVolume();
-    //    public Task<object> SuccessfulTransactionToday();
-    //    public Task<object> SuccessfulTransactionYesterday();
 
-    //    public Task<object> FailedTransactionToday();
-    //    public Task<object> FailedTransactionYesterday();
-    //    //public Task<object> AccountsOnboardedRetail(
-    //    public Task<object> Test();
-    //    //public Task<bool> TestConnectionAsync();
-    //    Task<BarResponse> GetValueByCategories();
-    //}
 
 
 

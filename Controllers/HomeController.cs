@@ -306,12 +306,7 @@ namespace DashboardProject.Controllers
             return response;
         }
 
-       /* [HttpGet]
-        public async Task<object> AcctRetail()
-        {
-            var response = await _dailyTransactionRepo.AccountsOnboardedRetail();
-            return response;
-        }*/
+      
 
         // Remita Transactions
         [HttpGet]
@@ -369,14 +364,7 @@ namespace DashboardProject.Controllers
             var response = await _dailyTransactionRepo.FailedTransactionYesterday();
             return response;
         }
-        //outward from 192.168.224.41
-        //[HttpGet]
-        //public async Task<object> OutwardOne()
-        //{
-        //    var response = await _dailyTransactionRepo.OutwardOne();
-        //    return response;
-        //}
-
+        
 
         public IActionResult Privacy()
         {

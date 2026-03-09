@@ -24,7 +24,6 @@ namespace DashboardProject
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
 
@@ -42,7 +41,6 @@ namespace DashboardProject
 
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IBackgroundJobClient backgroundJobClient,
             IRecurringJobManager recurringJobManager, IServiceProvider serviceProvider)
         {
@@ -53,7 +51,6 @@ namespace DashboardProject
             else
             {
                 app.UseExceptionHandler("/Home/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
             app.UseHttpsRedirection();
@@ -75,7 +72,7 @@ namespace DashboardProject
             backgroundJobClient.Enqueue(() => Console.WriteLine("Hello Hangfire job!"));
             recurringJobManager.AddOrUpdate(
                 "Run every 2 hours",
-                () => serviceProvider.GetService<IDailyTransactionRepo>().GetDailyTransactionCounts(), "*/7 * * * *" //Cron.Hourly(4)
+                () => serviceProvider.GetService<IDailyTransactionRepo>().GetDailyTransactionCounts(), "*/7 * * * *" 
                 );
         }
     }
