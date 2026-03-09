@@ -1,0 +1,347 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<!--<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#" style="text-align:center">
+
+            <span> <img src="~/vendors/images/logo.png" />  <h4>Monitoring Dashboard - </h4> </span>
+            @{
+                    <h5 style="color:green">@DateTime.Now.ToLongDateString()</h5>
+                }
+                
+        </a>
+    </div>
+</nav>-->
+
+
+<div style="text-align:center">
+    <nav class="navbar navbar-expand-md navbar-light bg-light">
+        <div class="container-fluid">
+            <img src="~/vendors/images/logo.png" />
+            <h2>Monitoring Dashboard</h2>
+            @{
+                <h5 style="color:green">@DateTime.Now.ToLongDateString()</h5>
+            }
+        </div>
+    </nav>
+</div>
+<br />
+<div class="row">
+
+    <br />
+
+
+    <div class="col-xl-3 mb-30">
+        <div class="card-box height-auto-p widget-style1">
+            <div class="col-12">
+                <div class="weight-600 font-16">DAILY TRANSACTIONS</div>
+                <hr />
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="h4 mb-0"><h1 id="DailyTransact"></h1></div>
+                        <div class="weight-600 font-16">Today</div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="h4 mb-0"><h1 id="yesterdayTransaction"></h1></div>
+                        <div class="weight-600 font-16">Yesterday</div>
+                    </div>
+                </div>
+
+            </div>
+            
+        </div>
+    </div>
+
+    <div class="col-xl-3 mb-30">
+        <div class="card-box height-auto-p widget-style1">
+            <div class="col-12">
+                <div class="weight-600 font-16">REVERSED TRANSACTIONS</div>
+                <hr />
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="h4 mb-0"><h1 id="ReversedTransactions"></h1></div>        
+                        <div class="weight-600 font-16">Today</div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="h4 mb-0"><h1 id="yesterdayreverse"></h1></div>
+                        <div class="weight-600 font-16">Yesterday</div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-3 mb-30">
+        <div class="card-box height-auto-p widget-style1">
+            <div class="col-12">
+                <div class="weight-600 font-16"> ATM, WITHDRAWAL & TRANSFER</div>
+                <hr />
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="h4 mb-0"><h1 id="AtmAndTransferTransaction"></h1></div>
+                        <div class="weight-600 font-16">Today</div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="h4 mb-0"><h1 id="atmtranferyestreday"></h1></div>
+                        <div class="weight-600 font-16">Yesterday</div>
+                    </div>
+                </div>
+
+            </div>
+            
+        </div>
+    </div>
+
+    <div class="col-xl-3 mb-30">
+        <div class="card-box height-auto-p widget-style1">
+
+            <div class="col-12">
+                <div class="weight-600 font-16"> OUTWARD TRANSACTIONS</div>
+                <hr />
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="h4 mb-0"><h1 id="OutwardTransactionPerDay"></h1></div>
+                        <div class="h4 mb-0 text-green"><h6 style="color:green" id="OutwardTransactionPerDayValue"></h6></div>
+                        <div class="weight-600 font-16">Today</div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="h4 mb-0"><h1 id="outwardtranyesterday"></h1></div>
+                        <div class="h4 mb-0 text-green"><h6 style="color:green" id="OutwardTransactionPerDayValueYesterday"></h6></div>
+                        <div class="weight-600 font-16">Yesterday</div>
+                    </div>
+                </div>
+
+            </div>
+            
+        </div>
+    </div>
+</div>
+
+@* second row*@
+
+<div class="row">
+
+    <br />
+    <div class="col-xl-3 mb-10">
+        <div class="card-box height-auto-p widget-style1">
+            <div>
+                <div>
+
+                    <div class="weight-600 font-16">DAILY ACCOUNT OPENED</div>
+                   
+                    <hr />
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="h4 mb-0"><h1 id="DailyAccountOpened"></h1></div>         
+                            <div class="weight-600 font-16">Today</div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="h4 mb-0"><h1 id="yesterdayaccountbankwide"></h1></div>
+                            <div class="weight-600 font-16">Yesterday</div>
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="weight-600 font-16">BREAKDOWN BY BRANCH</div>
+                    <!--<div>AH -- <span id="hopewell" style="font-weight:800"></span> | <span id="hopewellyesterday" style="font-weight:800"></span> (Y) </div>
+                    <div>Ogba -- <span id="ogba" style="font-weight:800"></span> | <span id="ogbayesterday" style="font-weight:800"></span> (Y) </div>
+                    <div>Camp -- <span id="camp" style="font-weight:800"></span> | <span id="campyesterday" style="font-weight:800"></span> (Y) </div>
+                    <div>Abuja -- <span id="abuja" style="font-weight:800"></span> | <span id="abujayesterday" style="font-weight:800"></span> (Y) </div>
+                    <div>Oko-Oba -- <span id="okooba" style="font-weight:800"></span> | <span id="okoobayesterday" style="font-weight:800"></span> (Y) </div>-->
+                    
+                    <table style="width:100%">
+                        <tr>
+                            <th>Branch</th>
+                            <th>Today</th>
+                            <th>Yesterday</th>
+                        </tr>
+                        <tr>
+                            <td>Adeola-H</td>
+                            <td id="hopewell"></td>
+                            <td id="hopewellyesterday"></td>
+                        </tr>
+                        <tr>
+                            <td>Ogba</td>
+                            <td id="ogba"></td>
+                            <td id="ogbayesterday"></td>
+                        </tr>
+                        <tr>
+                            <td>Camp</td>
+                            <td id="camp"></td>
+                            <td id="campyesterday"></td>
+                        </tr>
+                        <tr>
+                            <td>Abuja</td>
+                            <td id="abuja"></td>
+                            <td id="abujayesterday"></td>
+                        </tr>
+                        <tr>
+                            <td>Oko-Oba</td>
+                            <td id="okooba"></td>
+                            <td id="okoobayesterday"></td>
+                        </tr>
+
+                        <tr>
+                            <td>E-channel</td>
+                            <td id="echannel"></td>
+                            <td id="echannelyesterday"></td>
+                        </tr>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-3 mb-30">
+        <div class="card-box height-auto-p widget-style1">
+            <div class="col-12">
+                <div class="weight-600 font-16">INWARD TRANSACTION</div>
+                <hr />
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="h4 mb-0"><h1 id="InwardTransactionPerDay"></h1></div>
+                        <div class="h4 mb-0 text-green"><h6 style="color:green" id="InwardTransactionPerDayValue"></h6></div>
+                        <div class="weight-600 font-16">Today</div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="h4 mb-0"><h1 id="yesterday"></h1></div>
+                        <div class="h4 mb-0 text-green"><h6 style="color:blue" id="yesterdayamount"></h6></div>
+                        <div class="weight-600 font-16">Yesterday</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br /> 
+        <div class="card-box height-auto-p widget-style1">
+            <div class="col-12">
+                <div class="weight-600 font-16">REMITA TRANSACTIONS</div>
+                <hr />
+                <div class="row">
+                    <div class="col-lg-6">
+                         <div class="h4 mb-0"><h1 id="remitatranscount"></h1></div>
+                         <div class="h4 mb-0 text-green"><h6 style="color:green" id="remitavolumecount"></h6></div>
+                         <div class="weight-600 font-16">Today</div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="h4 mb-0"><h1 id="remitatranscountyesterday"></h1></div>
+                        <div class="h4 mb-0 text-green"><h6 style="color:blue" id="remitavolumecountyesterday"></h6></div>
+                        <div class="weight-600 font-16">Yesterday</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-3 mb-30">
+        <div class="card-box height-auto-p widget-style1">
+            <div class="col-12">
+                <div class="weight-600 font-16">MAIL SENT</div>
+                <hr />
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="h4 mb-0"><h1 id="SentMailPerDay"></h1></div>
+                        <div class="weight-600 font-16">Today</div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="h4 mb-0"><h1 id="mailsentyesterday"></h1></div>
+                        <div class="weight-600 font-16">Yesterday</div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+
+        <br />
+
+        <div class="card-box height-auto-p widget-style1">
+            <div class="col-12">
+                <div class="weight-600 font-16">Successful Transfer</div>
+                <hr />
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="h4 mb-0"><h1 id="SuccessfulTransactionsToday"></h1></div>
+                        <div class="weight-600 font-16">Today</div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="h4 mb-0"><h1 id="SuccessfulTransactionsYesterday"></h1></div>
+                        <div class="weight-600 font-16">Yesterday</div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        
+       <!-- <div class="card-box height-auto-p widget-style1">
+            <div class="col-12">
+                <div class="weight-600 font-16">CORPORATE ONBOARDING</div>
+                <hr />
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="h4 mb-0"><h1 id="retail"></h1></div>
+                        <div class="weight-600 font-16">Today</div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="h4 mb-0"><h1 id="retail"></h1></div>
+                        <div class="weight-600 font-16">Yesterday</div>
+                    </div>
+                </div>
+            </div>
+         </div>-->
+    </div>
+    <div class="col-xl-3 mb-30">
+        <div class="card-box height-auto-p widget-style1">
+            <div class="col-12">
+                <div class="weight-600 font-16">SMS SENT</div>
+                <hr />
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="h4 mb-0"><h1 id="SentSMSPerDay"></h1></div>
+                        <div class="weight-600 font-16">Today</div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="h4 mb-0"><h1 id="smssentyesterday"></h1></div>
+                        <div class="weight-600 font-16">Yesterday</div>
+                    </div>
+                </div>
+
+            </div>
+            
+        </div>
+
+        <br />
+
+        <div class="card-box height-auto-p widget-style1">
+            <div class="col-12">
+                <div class="weight-600 font-16">UnSuccessful Transfer</div>
+                <hr />
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="h4 mb-0"><h1 id="FailedTransactionsToday"></h1></div>
+                        <div class="weight-600 font-16">Today</div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="h4 mb-0"><h1 id="FailedTransactionsYesterday"></h1></div>
+                        <div class="weight-600 font-16">Yesterday</div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+    </div>
+
+    <div class="col-md-12 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <p class="card-title mb-0">Values By Categories</p>
+                <hr />
+                <canvas id="myBarChart" style="width:100%;max-width:1200px"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
