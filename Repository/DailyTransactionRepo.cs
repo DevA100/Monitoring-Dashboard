@@ -46,7 +46,7 @@ namespace DashboardProject.Repository
         {
             var constring = GetConnectionString("DefaultConnection");
             var query = @"SELECT COUNT(*) 
-                          FROM VwAccMaster 
+                          FROM yourtable 
                           WHERE ProdCatCode IN ('0','0') 
                             AND DateAdded = @DateAdded";
             using var conn = new SqlConnection(constring);
@@ -59,7 +59,7 @@ namespace DashboardProject.Repository
             var constring2 = GetConnectionString("DefaultConnectionBarChat");
 
             var query = @"SELECT COUNT(*) 
-                          FROM VwAccMaster 
+                          FROM yourtable 
                           WHERE ProdCatCode IN ('0','0') 
                             AND DateAdded = @DateAdded";
 
@@ -83,7 +83,7 @@ namespace DashboardProject.Repository
         {
             var constring = GetConnectionString("DefaultConnection");
             var query = @"SELECT COUNT(*) 
-                          FROM VwAccMaster 
+                          FROM yourtable 
                           WHERE ProdCatCode IN (1,2) 
                             AND BranchCode = @BranchCode 
                             AND DateAdded = @DateAdded";
@@ -109,7 +109,7 @@ namespace DashboardProject.Repository
         {
             var constring = GetConnectionString("DefaultConnection");
             var query = @"SELECT COUNT(*)
-                  FROM VwAccMaster 
+                  FROM yourtable 
                   WHERE AddedBy IN ('eChannels', 'Trans')
                   AND CAST(DateAdded AS DATE) = @DateAdded";
 
@@ -129,7 +129,7 @@ namespace DashboardProject.Repository
             var constring2 = GetConnectionString("DefaultConnectionBarChat");
 
             var query = @"SELECT COUNT(DISTINCT TransID) 
-                          FROM TransLines 
+                          FROM yourtable 
                           WHERE TransCode IN ('00','00') 
                             AND ValueDate = @ValueDate";
 
@@ -160,9 +160,9 @@ namespace DashboardProject.Repository
         public async Task<int> AtmAndTransferTransactionYesterday()
         {
             var constring = GetConnectionString("DefaultConnection");
-            var query = @"SELECT COUNT(DISTINCT TransID) 
-                          FROM TransHist 
-                          WHERE TransCode IN ('00','00') 
+            var query = @"SELECT COUNT(DISTINCT yourid) 
+                          FROM yourtable 
+                          WHERE yourrow IN ('00','00') 
                             AND ValueDate = @ValueDate";
             using var conn = new SqlConnection(constring);
             return await conn.ExecuteScalarAsync<int>(query, new { ValueDate = DateTime.Now.Date.AddDays(-1).ToString("yyyy-MM-dd") });
@@ -171,7 +171,7 @@ namespace DashboardProject.Repository
         public async Task<int> RemitaTransactionsYesterday()
         {
             var constring = GetConnectionString("DefaultConnection");
-            var query = "SELECT COUNT(DISTINCT TransID) FROM TransHist WHERE ValueDate = @DateAdded AND TransCode = 00";
+            var query = "SELECT COUNT(DISTINCT yourID) FROM TransHist WHERE ValueDate = @DateAdded AND TransCode = 00";
             using var connection = new SqlConnection(constring);
             return await connection.QuerySingleOrDefaultAsync<int>(query, new { DateAdded = DateTime.Now.Date.AddDays(-1).ToString("yyyy-MM-dd") });
         }
@@ -179,7 +179,7 @@ namespace DashboardProject.Repository
         public async Task<int> RemitaTransactions()
         {
             var constring = GetConnectionString("DefaultConnection");
-            var query = "SELECT COUNT(DISTINCT TransID) FROM TransLines WHERE ValueDate = @DateAdded AND TransCode = 00";
+            var query = "SELECT COUNT(DISTINCT yourID) FROM yourtable WHERE ValueDate = @DateAdded AND TransCode = 00";
             using var connection = new SqlConnection(constring);
             return await connection.QuerySingleOrDefaultAsync<int>(query, new { DateAdded = DateTime.Now.Date.ToString("yyyy-MM-dd") });
         }
@@ -187,7 +187,7 @@ namespace DashboardProject.Repository
         public async Task<string> RemitaVolumeYesterday()
         {
             var constring = GetConnectionString("DefaultConnection");
-            var query = "SELECT SUM(Credit) FROM TransHist WHERE ValueDate = @DateAdded AND TransCode = 00";
+            var query = "SELECT SUM(Credit) FROM yourtable WHERE ValueDate = @DateAdded AND TransCode = 00";
             using var connection = new SqlConnection(constring);
             var result = await connection.QuerySingleOrDefaultAsync<decimal?>(query,
                 new { DateAdded = DateTime.Now.Date.AddDays(-1).ToString("yyyy-MM-dd") }) ?? 0m;
@@ -197,7 +197,7 @@ namespace DashboardProject.Repository
         public async Task<string> RemitaVolume()
         {
             var constring = GetConnectionString("DefaultConnection");
-            var query = "SELECT SUM(Credit) FROM TransLines WHERE ValueDate = @DateAdded AND TransCode = 00";
+            var query = "SELECT SUM(Credit) FROM yourtable WHERE ValueDate = @DateAdded AND TransCode = 00";
             using var connection = new SqlConnection(constring);
             
             var result = await connection.QuerySingleOrDefaultAsync<decimal?>(query,
@@ -209,7 +209,7 @@ namespace DashboardProject.Repository
         public async Task<int> GetDailyTransactionCounts()
         {
             var constring = GetConnectionString("DefaultConnection");
-            var query = "SELECT COUNT(DISTINCT TransID) FROM TransLines WHERE TransCode IN ('00','00','00') AND ValueDate = @ValueDate";
+            var query = "SELECT COUNT(DISTINCT yourid) FROM yourtable WHERE TransCode IN ('00','00','00') AND ValueDate = @ValueDate";
             using var connection = new SqlConnection(constring);
             return await connection.QuerySingleOrDefaultAsync<int>(query, new { ValueDate = DateTime.Now.Date.ToString("yyyy-MM-dd") });
         }
@@ -217,7 +217,7 @@ namespace DashboardProject.Repository
         public async Task<int> GetYesterdayTransactionCounts()
         {
             var constring = GetConnectionString("DefaultConnection");
-            var query = "SELECT COUNT(DISTINCT TransID) FROM TransHist WHERE DateAdded = @DateAdded AND TransCode IN ('00','00','00')";
+            var query = "SELECT COUNT(DISTINCT yourid) FROM yourtable WHERE DateAdded = @DateAdded AND TransCode IN ('00','00','00')";
             using var connection = new SqlConnection(constring);
             return await connection.QuerySingleOrDefaultAsync<int>(query, new { DateAdded = DateTime.Now.Date.AddDays(-1).ToString("yyyy-MM-dd") });
         }
@@ -226,7 +226,7 @@ namespace DashboardProject.Repository
         {
             var constring = GetConnectionString("DefaultConnection");
             var query = @"SELECT COUNT(Credit) 
-                          FROM VwTransLines 
+                          FROM yourtable 
                           WHERE ValueDate = @ValueDate  
                             AND Credit <> '0.00' 
                             AND TransCode = '00' 
@@ -240,7 +240,7 @@ namespace DashboardProject.Repository
         {
             var constring = GetConnectionString("DefaultConnection");
             var query = @"SELECT SUM(CAST(Credit AS decimal(18,2))) 
-                  FROM VwTransLines 
+                  FROM yourtable 
                   WHERE ValueDate = @ValueDate  
                     AND Credit <> '0.00' 
                     AND TransCode = '00' 
@@ -255,7 +255,7 @@ namespace DashboardProject.Repository
         {
             var constring = GetConnectionString("DefaultConnection");
             var query = @"SELECT SUM(CAST(Credit AS decimal(18,2))) 
-                  FROM VwTransHist 
+                  FROM yourtable 
                   WHERE ValueDate = @ValueDate 
                     AND Credit <> '0.00' 
                     AND TransCode = '00' 
@@ -271,7 +271,7 @@ namespace DashboardProject.Repository
         {
             var constring = GetConnectionString("DefaultConnection");
             var query = @"SELECT COUNT(Debit) 
-                          FROM VwTransLines 
+                          FROM yourtable 
                           WHERE ValueDate = @ValueDate  
                             AND Debit <> '0.00' 
                             AND TransCode = '00' 
@@ -284,7 +284,7 @@ namespace DashboardProject.Repository
         {
             var constring = GetConnectionString("DefaultConnection");
             var query = @"SELECT COUNT(Debit) 
-                          FROM TransHist 
+                          FROM yourtable 
                           WHERE ValueDate = @ValueDate  
                             AND Debit <> '0.00' 
                             AND TransCode = '00' 
@@ -298,7 +298,7 @@ namespace DashboardProject.Repository
         {
             var constring = GetConnectionString("DefaultConnection");
             var query = @"SELECT SUM(Debit) 
-                  FROM VwTransLines 
+                  FROM yourtable 
                   WHERE CAST(ValueDate AS DATE) = @ValueDate  
                     AND Debit <> 0 
                     AND TransCode = '00' 
@@ -317,7 +317,7 @@ namespace DashboardProject.Repository
         {
             var constring = GetConnectionString("DefaultConnection");
             var query = @"SELECT SUM(Debit) 
-                  FROM TransHist 
+                  FROM yourtable 
                   WHERE CAST(ValueDate AS DATE) = @ValueDate  
                     AND Debit <> 0 
                     AND TransCode = '00' 
@@ -340,7 +340,7 @@ namespace DashboardProject.Repository
         {
             var constring = GetConnectionString("DefaultConnection");
             var query = @"SELECT COUNT(*) 
-                          FROM TransLines 
+                          FROM yourtable 
                           WHERE ValueDate = @ValueDate 
                             AND UserNarrative LIKE ('%RVS%') 
                             AND TransCode = '00' 
@@ -353,7 +353,7 @@ namespace DashboardProject.Repository
         {
             var constring = GetConnectionString("DefaultConnection");
             var query = @"SELECT COUNT(*) 
-                          FROM MessagesLog 
+                          FROM yourtable 
                           WHERE EmailAddr <> '' 
                             AND DateAdded = @DateAdded 
                             AND EmailAddr <> 'email'";
@@ -365,7 +365,7 @@ namespace DashboardProject.Repository
         {
             var constring = GetConnectionString("DefaultConnection");
             var query = @"SELECT COUNT(*) 
-                          FROM MessagesLog 
+                          FROM yourtable 
                           WHERE EmailAddr <> '' 
                             AND DateAdded = @DateAdded 
                             AND EmailAddr <> 'email'";
@@ -377,7 +377,7 @@ namespace DashboardProject.Repository
         {
             var constring = GetConnectionString("DefaultConnection");
             var query = @"SELECT COUNT(*) 
-                          FROM MessagesLog 
+                          FROM yourtable 
                           WHERE PhoneNo <> '' 
                             AND DateAdded = @DateAdded";
             using var connection = new SqlConnection(constring);
@@ -388,7 +388,7 @@ namespace DashboardProject.Repository
         {
             var constring = GetConnectionString("DefaultConnection");
             var query = @"SELECT COUNT(*) 
-                          FROM MessagesLog 
+                          FROM yourtable 
                           WHERE PhoneNo <> '' 
                             AND DateAdded = @DateAdded";
             using var connection = new SqlConnection(constring);
@@ -399,7 +399,7 @@ namespace DashboardProject.Repository
         {
             var constring = GetConnectionString("DefaultConnection");
             var query = @"SELECT COUNT(Credit) 
-                          FROM VwTransHist 
+                          FROM yourtable 
                           WHERE ValueDate = @ValueDate 
                             AND Credit <> '0.00' 
                             AND TransCode = '00' 
@@ -414,7 +414,7 @@ namespace DashboardProject.Repository
         {
             var constring = GetConnectionString("DefaultConnection");
             var query = @"SELECT COUNT(*) 
-                          FROM TransHist 
+                          FROM yourtable 
                           WHERE DateAdded = @DateAdded 
                             AND UserNarrative LIKE ('%RVS%') 
                             AND TransCode = '00' 
@@ -427,7 +427,7 @@ namespace DashboardProject.Repository
         {
             var constring = GetConnectionString("DefaultConnection");
             var query = @"SELECT COUNT(transid) 
-                          FROM VwAcctMaintDetails 
+                          FROM yourtable 
                           WHERE MaintType = '03' 
                             AND PostingDate = @DateAdded";
             using var connection = new SqlConnection(constring);
@@ -438,7 +438,7 @@ namespace DashboardProject.Repository
         {
             var constring1 = GetConnectionString("MoneytorDbConnection");
             var constring2 = GetConnectionString("MoneytorCorporateConnection");
-            var query = @"SELECT COUNT(*) FROM transfer WHERE transaction_status = 'successful' AND CONVERT(date, time_added) = @DateAdded";
+            var query = @"SELECT COUNT(*) FROM yourtable WHERE transaction_status = 'successful' AND CONVERT(date, time_added) = @DateAdded";
             var param = new { DateAdded = DateTime.Now.Date.ToString("yyyy-MM-dd") };
 
             int result1 = 0, result2 = 0;
@@ -459,7 +459,7 @@ namespace DashboardProject.Repository
         {
             var constring1 = GetConnectionString("MoneytorDbConnection");
             var constring2 = GetConnectionString("MoneytorCorporateConnection");
-            var query = @"SELECT COUNT(*) FROM transfer WHERE transaction_status = 'successful' AND CONVERT(date, time_added) = @DateAdded";
+            var query = @"SELECT COUNT(*) FROM yourtable WHERE transaction_status = 'successful' AND CONVERT(date, time_added) = @DateAdded";
             var param = new { DateAdded = DateTime.Now.Date.AddDays(-1).ToString("yyyy-MM-dd") };
 
             int result1 = 0, result2 = 0;
@@ -480,7 +480,7 @@ namespace DashboardProject.Repository
         {
             var constring1 = GetConnectionString("MoneytorDbConnection");
             var constring2 = GetConnectionString("MoneytorCorporateConnection");
-            var query = @"SELECT COUNT(*) FROM transfer WHERE transaction_status = 'failed' AND CONVERT(date, time_added) = @DateAdded";
+            var query = @"SELECT COUNT(*) FROM yourtable WHERE transaction_status = 'failed' AND CONVERT(date, time_added) = @DateAdded";
             var param = new { DateAdded = DateTime.Now.Date.ToString("yyyy-MM-dd") };
 
             int result1 = 0, result2 = 0;
@@ -501,7 +501,7 @@ namespace DashboardProject.Repository
         {
             var constring1 = GetConnectionString("MoneytorDbConnection");
             var constring2 = GetConnectionString("MoneytorCorporateConnection");
-            var query = @"SELECT COUNT(*) FROM transfer WHERE transaction_status = 'failed' AND CONVERT(date, time_added) = @DateAdded";
+            var query = @"SELECT COUNT(*) FROM yourtable WHERE transaction_status = 'failed' AND CONVERT(date, time_added) = @DateAdded";
             var param = new { DateAdded = DateTime.Now.Date.AddDays(-1).ToString("yyyy-MM-dd") };
 
             int result1 = 0, result2 = 0;
@@ -539,7 +539,7 @@ namespace DashboardProject.Repository
         {
             var constring = GetConnectionString("DefaultConnection");
             var query = @"SELECT COUNT(transid) as CountTransId
-                          FROM VwAcctMaintDetails
+                          FROM yourtable
                           WHERE MaintType = '03' AND PostingDate = @DateAdded";
 
             DataTable dt = new DataTable();
